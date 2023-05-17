@@ -51,7 +51,7 @@ proprietà nella mia rete:
 - ho una rete privata quindi solo i device all'interno della rete possono inviare pacchetti verso il mondo esterno. Il vceversa, ovvero, un device nella rete pubblica non può ad esempio mandare richieste di ping verso la rete privata.
 - inoltre come vedete nell'immagine, la "public network 1" può essere considerata come una server farm. La caratteristica di questa rete è che abbiamo un server principale il "server2" e gli altri 2 server sono di supporto al server principale.
 ## Iptables implementation
-### file r2.startup
+### file r3.startup
 Iniziamo con esaminare questo router. Il router che gestisce la nostra rete privata.
 > iptables-legacy -A FORWARD -i eth1 -o eth0 -j DROP
 
@@ -68,5 +68,20 @@ Riassumento abbiamo utilizzato delle regole IPtables che ci permettono di gestir
 Passiamo ora a livello INPUT.
 Stesso discorso per il router stesso che facendo parte di una rete privata non può ricevere pacchetti provenienti dal mondo esterno (reti pubbliche).
 Basterà quindi usare queste 2 IPtables:
+> iptables-legacy -A INPUT -i eth1 -m state --state ESTABLISHED -j ACCEPT
+
+> iptables-legacy -A INPUT -i eth1 -j DROP
+
+Siamo come ripeto in una rete privata quindi dato che vogliamo fare le cose per bene, dobbiamo fare in modo che i pacchetti che escono dalla rete privata non abbiano l'indirizzo ip del device interno ma del router, quindi ecco qua che introduciamo il NAT:
+> iptables-legacy -t nat -A POSTROUTING -s 10.0.0.0/16 -j MASQUERADE
+
+Con questa regola diciamo che tutti quei pacchetti che hanno indirizzo sorgente (-s) 10.0.0.0/16 devono essere mascherati (-j MASQUERADE) con indirizzo ip del router. l'ip viene cambiato automaticamente nel POSTROUTING.
+### file r2.startup
+Questo router gestisce la server farm.
+Nella farm ho voluto fare un ipotesi: abbiamo un server principale SW2 e 2 server di supporto.
+In sostanza solo il server2 è visibile alle reti, quindi i device faranno richiesta di accesso alla pagina html del server2.
+Io però non voglio sovraccaricare il server di richieste, quindi ho implementato tramite le IPtables un metodo dinamico che mi gestisce le richieste, il cosidetto: Round Robin Load Balancing.
+- In sostanza le varie richieste vengono distribuite sui vari server. La prima richiesta viene direttamente gestita dal SW2, la seconda dal SW3, una terza dal SW4, e se ci dovesse essere una quarta richiesta questa torna ad essere gestita dal SW2 ed il ciclo riinizia.
+
 
 
