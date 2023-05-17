@@ -1,0 +1,11 @@
+#configurazione del client-2
+
+ifconfig eth0 10.0.0.3/16 up
+route add default gw 10.0.0.10 dev eth0
+
+
+#commenti:
+#Imposto l'indirizzo IP della scheda di rete eth0 su 10.0.0.3 con una subnet mask indicata con la notazione /16 (255.255.0.0).
+#Aggiungo una "via" di default alla tabella di routing del client, 
+#segnalando che i pacchetti destinati ad un IP esterno alla private network devono essere instradati attraverso 
+#l'interfaccia di rete eth0 e inviati al gateway con IP: 10.0.0.10
