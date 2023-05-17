@@ -51,7 +51,22 @@ proprietà nella mia rete:
 - ho una rete privata quindi solo i device all'interno della rete possono inviare pacchetti verso il mondo esterno. Il vceversa, ovvero, un device nella rete pubblica non può ad esempio mandare richieste di ping verso la rete privata.
 - inoltre come vedete nell'immagine, la "public network 1" può essere considerata come una server farm. La caratteristica di questa rete è che abbiamo un server principale il "server2" e gli altri 2 server sono di supporto al server principale.
 ## Iptables implementation
-### file server2.startup
+### file r2.startup
 Iniziamo con esaminare questo router. Il router che gestisce la nostra rete privata.
->
->
+> iptables-legacy -A FORWARD -i eth1 -o eth0 -j DROP
+
+questo comando fa in modo che tutto quello che arriva dall'esterno (nella scheda di rete eth1) e viene inoltrato (osserviamo il comando FORWARD) verso la rete privata(verso le schede eth0) viene lasciato cadere (-j DROP).
+
+Di conseguenza un device all interno della rete privata può mandare richieste di ping correttamente senza problemi.
+Qual'è il problema? che i pacchetti di ritorno non verranno lasciati passare a causa della regola IPtables appena inserita.
+Per risolvere questo problema basta usare il comando qua sotto:
+> iptables-legacy -A FORWARD -i eth1 -o eth0 -m state --state ESTABLISHED -j ACCEPT
+
+Questo ci dice che: tutto quello che arriva da eth1 e viene inoltrato verso eth0 ma fa parte di una connessione già stabilita (-m state --state ESTABLISHED) deve essere accettata (-j ACCEPT).
+
+Riassumento abbiamo utilizzato delle regole IPtables che ci permettono di gestire il traffico a livello FORWARDING.
+Passiamo ora a livello INPUT.
+Stesso discorso per il router stesso che facendo parte di una rete privata non può ricevere pacchetti provenienti dal mondo esterno (reti pubbliche).
+Basterà quindi usare queste 2 IPtables:
+
+
