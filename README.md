@@ -94,4 +94,9 @@ Io però non voglio sovraccaricare il server di richieste, quindi ho implementat
 - In sostanza le varie richieste vengono distribuite dinamicamente sui vari server. La prima richiesta viene direttamente gestita dal SW2, la seconda dal SW3, una terza dal SW4, e se ci dovesse essere una quarta richiesta questa torna ad essere gestita dal SW2 ed il ciclo riinizia.
 
 Invece,
+> iptables-legacy -A FORWARD -i eth1 -d 1.0.0.6 -m state --state ESTABLISHED -j ACCEPT
+> iptables-legacy -A FORWARD -i eth1 -d 1.0.0.6 -j DROP
+> iptables-legacy -A FORWARD -i eth1 -d 1.0.0.2 -m state --state ESTABLISHED -j ACCEPT
+> iptables-legacy -A FORWARD -i eth1 -d 1.0.0.2 -j DROP
 
+- ho ipotizzato che visto che sono server di supporto non sono accessibili dalle reti esterne.
