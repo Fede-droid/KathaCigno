@@ -110,8 +110,11 @@ In essence, the requests are dynamically distributed among the various servers. 
 I assumed that since they are support servers, they are not accessible from external networks. Then we have the Iptables rules:
 
 > iptables-legacy -A FORWARD -i eth1 -d 1.0.0.6 -m state --state ESTABLISHED -j ACCEPT
+>
 > iptables-legacy -A FORWARD -i eth1 -d 1.0.0.6 -j DROP
+>
 > iptables-legacy -A FORWARD -i eth1 -d 1.0.0.2 -m state --state ESTABLISHED -j ACCEPT
+>
 > iptables-legacy -A FORWARD -i eth1 -d 1.0.0.2 -j DROP
 
 ## Test
