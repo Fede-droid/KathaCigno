@@ -81,7 +81,17 @@ Questo router gestisce la server farm.
 Nella farm ho voluto fare un ipotesi: abbiamo un server principale SW2 e 2 server di supporto.
 In sostanza solo il server2 è visibile alle reti, quindi i device faranno richiesta di accesso alla pagina html del server2.
 Io però non voglio sovraccaricare il server di richieste, quindi ho implementato tramite le IPtables un metodo dinamico che mi gestisce le richieste, il cosidetto: Round Robin Load Balancing.
-- In sostanza le varie richieste vengono distribuite sui vari server. La prima richiesta viene direttamente gestita dal SW2, la seconda dal SW3, una terza dal SW4, e se ci dovesse essere una quarta richiesta questa torna ad essere gestita dal SW2 ed il ciclo riinizia.
 
+> iptables-legacy -A PREROUTING -t nat -p tcp -d 1.0.0.1 --dport 80 
+                -m statistic --mode nth --every 3 --packet 0 -j DNAT --to-destination 1.0.0.1:80
 
+> iptables-legacy -A PREROUTING -t nat -p tcp -d 1.0.0.1 --dport 80 
+                -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 1.0.0.6:80
+
+> iptables-legacy -A PREROUTING -t nat -p tcp -d 1.0.0.1 --dport 80 
+                -j DNAT --to-destination 1.0.0.2:80
+
+- In sostanza le varie richieste vengono distribuite dinamicamente sui vari server. La prima richiesta viene direttamente gestita dal SW2, la seconda dal SW3, una terza dal SW4, e se ci dovesse essere una quarta richiesta questa torna ad essere gestita dal SW2 ed il ciclo riinizia.
+
+Invece,
 
