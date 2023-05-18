@@ -21,7 +21,7 @@ In this guide, I will show you how to configure network devices using the networ
 ## My network scheme
 ![image](https://github.com/Fede-droid/KathaCigno/assets/80335626/11fb55dd-53ab-4397-89ab-46c11dd74f08)
 
-Here you can see two highlighted public networks in blue and one highlighted private network in green. These networks are represented by letters and consist of various devices such as clients, routers, and servers. Each device has two cells next to it, containing letters and numbers. 
+Here you can see two public networks in blue and one private network in green. These networks are represented by letters and consist of various devices such as clients, routers, and servers. Each device has two cells next to it, containing letters and numbers. 
 
 - The upper cell indicates the device's final IP address;
 - The lower cell indicates the associated network interface.
