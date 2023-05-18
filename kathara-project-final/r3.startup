@@ -1,4 +1,4 @@
-#configurazione del router r3
+#router R3 configuration
 
 ifconfig eth0 10.0.0.10/16 up
 ifconfig eth1 100.0.0.10/28 up
@@ -15,51 +15,13 @@ iptables-legacy -A INPUT -i eth1 -j DROP
 iptables-legacy -t nat -A POSTROUTING -s 10.0.0.0/16 -j MASQUERADE
 
 
-#commenti:
-#Imposto l'indirizzo IP della scheda di rete eth0 su 10.0.0.10 con una subnet mask indicata con la notazione /16 (255.255.0.0).
-#Imposto l'indirizzo IP della scheda di rete eth1 su 100.0.0.10 con una subnet mask indicata con la notazione /28 (255.255.240.0).
+#comments:
+#Set the IP address of network interface eth0 to 10.0.0.10 with a subnet mask indicated in the notation /16 (255.255.0.0).
+#Set the IP address of network interface eth1 to 100.0.0.10 with a subnet mask indicated in the notation /28 (255.255.240.0).
 
-#Aggiungo una "rotta" nella tabella di routing del router per la rete 11.0.0.0/24 indicando che i pacchetti destinati 
-#a tale rete devono essere inviati tramite l'interfaccia di rete eth1 ed utilizzando il gateway con indirizzo IP 100.0.0.5
-#Medesimo passaggio per la rete 1.0.0.0/24
+#Add a "route" in the routing table of the router for the network 11.0.0.0/24,
+#indicating that packets destined for that network should be sent through network interface eth1 using the gateway with IP address 100.0.0.5.
 
-#Questo comando consente al firewall di consentire il traffico di rete in uscita dalla rete interna (eth1)
-#verso la rete esterna (eth0) solo per i pacchetti che sono una risposta a pacchetti precedenti che hanno avviato una connessione.
+#Repeat the same step for the network1.0.0.0/24
 
-#Questo comando nega a qualsiasi pacchetto in arrivo dall'interfaccia di rete eth1 
-#e destinato all'interfaccia di rete eth0 di passare attraverso il firewall.
-
-#Questo comando ci permette di effettuare il NAT (Network Address Translation) per tutti quesii pacchetti 
-#che devono uscire dalla rete 10.0.0.0/16
-
-
-#######################################################################################
-
-#tcpdump -tenni eth.. -w /hosthome/capture.pcap
-#iptables-legacy -P FORWARD DROP
-#iptables-legacy -L -n
-#iptables-legacy-save > /hosthome/iptables.v4
-
-
-#iptables-legacy -A INPUT -p icmp --icmp-type echo-request -d 10.0.0.0/16 -s 100.0.0.0/30 -j DROP
-#iptables-legacy -A INPUT -i eth1 -d 10.0.0.0/16 -s 100.0.0.0/30 -j DROP
-#iptables-legacy -A INPUT -s 100.0.0.9 -j DROP
-#iptables-legacy -A INPUT -i eth1 -d 100.0.0.10 -s 10.0.0.0/16 -j REJECT
-#iptables-legacy -A INPUT -i eth1 -d 100.0.0.10 -j REJECT
-#iptables-legacy -A FORWARD -i lo -d 10.0.0.0/16 -j DROP
-
-#iptables-legacy -t nat -A POSTROUTING -s 10.0.0.3 -o 100.0.0.10 -j MASQUERADE
-
-#NESSUN DEVICE SULLE RETI PUBBLICHE PUò PINGARE SU R3
-#iptables-legacy -A INPUT -i eth1 -d 100.0.0.10 -j DROP
-
-#iptables-legacy -A FORWARD -i eth0 -d 100.0.0.0/30 -j ACCEPT
-
-#se uso il comando sopra non sa come raggiungere i dispositivi della rete 1.0.0.0/24,
-#quindi default  tutta la roba sconosciuta passa per r1
-#route add default gw 100.0.0.5 dev eth1
-#route add default gw 100.0.0.9 dev eth1
-
-
-#route add -net 100.0.0.0/24 gw 11.0.0.5 dev eth0
-
+#comments lines form 9 to 15 are in the READ.me file
