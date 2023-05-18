@@ -10,10 +10,5 @@ route add default gw 11.0.0.5 dev eth0
 #segnalando che i pacchetti destinati ad un IP esterno alla pubblic network 2 devono essere instradati attraverso 
 #l'interfaccia di rete eth0 e inviati al gateway con IP: 11.0.0.5
 
-##################################################
-
-#iptables --table nat --append PREROUTING --destination 50.50.50.11 -p tcp --dport 80 --match statistic --mode random --probability 0.5 --jump DNAT --to-destination 10.0.0.1:80
-#iptables --table nat --append PREROUTING --destination 50.50.50.11 -p tcp --dport 80 --jump DNAT --to-destination 10.0.0.2:80
-
 
 
