@@ -1,14 +1,13 @@
-#configurazione del client-1
+#client-1 configuration
 
 ifconfig eth0 11.0.0.7/24 up
 route add default gw 11.0.0.5 dev eth0
 
 
-#commenti:
-#Imposto l'indirizzo IP della scheda di rete eth0 su 11.0.0.7 con una
-#subnet mask indicata con la notazione /24 (255.255.255.0).
+#comments:
+#Setting the IP address of network interface eth0 to 11.0.0.7 with a
+#subnet mask indicated in the notation /24 (255.255.255.0).
 
-#Aggiungo una "via" di default alla tabella di routing del client, 
-#segnalando che i pacchetti destinati ad un IP esterno alla pubblic 
-#network 1 devono essere instradati attraverso 
-#l'interfaccia di rete eth0 e inviati al gateway con IP: 11.0.0.5
+#Adding a default "gateway" to the client's routing table,
+#indicating that packets destined for an IP outside of the public
+#network 1 should be routed through network interface eth0 and sent to the gateway with IP: 11.0.0.5.
