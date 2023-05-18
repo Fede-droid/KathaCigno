@@ -6,14 +6,6 @@ route add default gw 1.0.0.9 dev eth0
 /etc/init.d/apache2 start
 
 
-#commenti:
-#Imposto l'indirizzo IP della scheda di rete eth0 su 1.0.0.6 con una subnet mask indicata con la notazione /24 (255.255.255.0).
-#Aggiungo una "via" di default alla tabella di routing del client, 
-#segnalando che i pacchetti destinati ad un IP esterno alla private network devono essere instradati attraverso 
-#l'interfaccia di rete eth0 e inviati al gateway con IP: 1.0.0.9
-
-#Comando utilizzato per avviare il server web Apache sulla maggior parte delle distribuzioni Linux.
-
 #comments:
 #Set the IP address of network interface eth0 to 1.0.0.6
 #with a subnet mask indicated in the notation /24 (255.255.255.0).
