@@ -32,7 +32,9 @@ For example, let's consider the "public network 2". We observe the "client1", wh
 ### First step
 Create the file "lab.conf" and enter all the network devices associated with their network interface and domain, like this:
 
-> client1[eth0]=C
+> client1[0]=C  
+- 0 mean eth0
+- 1 mean eth1
 
 Repeat the same process for all other devices.
 
