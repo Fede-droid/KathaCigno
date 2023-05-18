@@ -7,14 +7,15 @@ route add -net 1.0.0.0/24 gw 100.0.0.9 dev eth1
 route add -net 10.0.0.0/16 gw 100.0.0.10 dev eth1
 
 
-#commenti:
-#Imposto l'indirizzo IP della scheda di rete eth0 su 11.0.0.5 
-#con una subnet mask indicata con la notazione /24 (255.255.255.0).
-#Imposto l'indirizzo IP della scheda di rete eth1 su 100.0.0.5 
-#con una subnet mask indicata con la notazione /28 (255.255.240.0).
+#comments:
+#Set the IP address of network interface eth0 to 11.0.0.5
+#with a subnet mask indicated in the notation /24 (255.255.255.0).
 
-#Aggiungo una "rotta" nella tabella di routing del router per la rete 1.0.0.0/24 
-#indicando che i pacchetti destinati a tale rete devono essere inviati tramite 
-#l'interfaccia di rete eth1 ed utilizzando il gateway con indirizzo IP 100.0.0.9
+#Set the IP address of network interface eth1 to 100.0.0.5
+#with a subnet mask indicated in the notation /28 (255.255.240.0).
 
-#Medesimo passaggio per la rete 10.0.0.0/16
+#Add a "route" in the routing table of the router for the network 1.0.0.0/24,
+#indicating that packets destined for that network should be sent through
+#network interface eth1 using the gateway with IP address 100.0.0.9.
+
+#Repeat the same step for the network 10.0.0.0/16.
