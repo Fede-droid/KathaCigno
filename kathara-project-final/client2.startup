@@ -1,4 +1,4 @@
-#configurazione del client-2
+#client-2 configuation
 
 ifconfig eth0 10.0.0.3/16 up
 route add default gw 10.0.0.10 dev eth0
@@ -9,3 +9,11 @@ route add default gw 10.0.0.10 dev eth0
 #Aggiungo una "via" di default alla tabella di routing del client, 
 #segnalando che i pacchetti destinati ad un IP esterno alla private network devono essere instradati attraverso 
 #l'interfaccia di rete eth0 e inviati al gateway con IP: 10.0.0.10
+
+#comments:
+#Setting the IP address of network interface eth0 to 11.0.0.7 with 10.0.0.3
+#subnet mask indicated in the notation /16 (255.255.0.0).
+
+#Adding a default "gateway" to the client's routing table,
+#indicating that packets destined for an IP outside of the public
+#network 1 should be routed through network interface eth0 and sent to the gateway with IP: 10.0.0.10.
